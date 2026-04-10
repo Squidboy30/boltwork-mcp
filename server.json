@@ -1,6 +1,6 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.squidboy30/boltwork-mcp",
+  "name": "io.github.Squidboy30/boltwork-mcp",
   "title": "Boltwork",
   "description": "AI services via Bitcoin Lightning — PDF summarisation, code review, translation and more.",
   "version": "0.1.1",

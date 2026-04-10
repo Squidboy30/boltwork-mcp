@@ -1,9 +1,9 @@
-{
+﻿{
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.Squidboy30/boltwork-mcp",
   "title": "Boltwork",
-  "description": "AI services via Bitcoin Lightning � PDF summarisation, code review, translation and more.",
-  "version": "0.1.4",
+  "description": "AI services via Bitcoin Lightning — PDF summarisation, code review, translation and more.",
+  "version": "0.1.5",
   "repository": {
     "url": "https://github.com/Squidboy30/boltwork-mcp",
     "source": "github"
@@ -12,7 +12,7 @@
     {
       "registryType": "pypi",
       "identifier": "boltwork-mcp",
-      "version": "0.1.4",
+      "version": "0.1.5",
       "transport": {
         "type": "stdio"
       },

@@ -4,27 +4,14 @@ build-backend = "hatchling.build"
 
 [project]
 name = "boltwork-mcp"
-version = "0.1.4"
-description = "MCP server for Boltwork — AI services via Bitcoin Lightning. PDF summarisation, code review, translation, and more."
-readme = "README.md"
+version = "0.1.5"
+description = "MCP server for Boltwork - AI services via Bitcoin Lightning"
+readme = {file = "README.md", content-type = "text/markdown"}
 license = { text = "MIT" }
 authors = [
     { name = "Cracked Minds", email = "hello@crackedminds.co.uk" }
 ]
-keywords = [
-    "mcp", "model-context-protocol", "lightning", "bitcoin", "l402",
-    "ai", "pdf", "summarisation", "code-review", "translation", "agents"
-]
-classifiers = [
-    "Development Status :: 4 - Beta",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Topic :: Software Development :: Libraries :: Python Modules",
-    "Topic :: Internet :: WWW/HTTP",
-]
+keywords = ["mcp", "model-context-protocol", "lightning", "bitcoin", "l402", "ai", "agents"]
 requires-python = ">=3.11"
 dependencies = [
     "mcp>=1.0.0",
@@ -36,26 +23,13 @@ nwc = [
     "pynostr>=0.6.0",
     "websockets>=12.0",
 ]
-dev = [
-    "pytest>=8.0",
-    "pytest-asyncio>=0.23",
-]
 
 [project.urls]
-Homepage    = "https://github.com/Squidboy30/boltwork-mcp"
-Repository  = "https://github.com/Squidboy30/boltwork-mcp"
-Issues      = "https://github.com/Squidboy30/boltwork-mcp/issues"
-API         = "https://parsebit.fly.dev"
+Homepage = "https://github.com/Squidboy30/boltwork-mcp"
+Repository = "https://github.com/Squidboy30/boltwork-mcp"
 
 [project.scripts]
 boltwork-mcp = "boltwork_mcp.server:run"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/boltwork_mcp"]
-
-[tool.hatch.build.targets.sdist]
-include = [
-    "src/",
-    "README.md",
-    "LICENSE",
-]

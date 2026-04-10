@@ -1,4 +1,4 @@
-<!-- mcp-name: io.github.Squidboy30/boltwork-mcp -->
+mcp-name: io.github.Squidboy30/boltwork-mcp
 # boltwork-mcp
 **MCP server for Boltwork — AI services that pay for themselves via Bitcoin Lightning.**
 

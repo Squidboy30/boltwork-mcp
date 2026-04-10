@@ -1,6 +1,6 @@
 # boltwork-mcp
-<!-- mcp-name: io.github.squidboy30/boltwork-mcp -->
-<!-- mcp-name: io.github.squidboy30/boltwork-mcp -->
+<!-- mcp-name: io.github.Squidboy30/boltwork-mcp -->
+<!-- mcp-name: io.github.Squidboy30/boltwork-mcp -->
 **MCP server for Boltwork — AI services that pay for themselves via Bitcoin Lightning.**
 
 Give your AI agent PDF summarisation, code review, translation, web extraction, document comparison, and persistent memory — all paid autonomously in sats. No API keys. No subscriptions. No accounts.

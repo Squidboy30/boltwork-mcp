@@ -1,0 +1,25 @@
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties:
+      nwcConnectionString:
+        type: string
+        description: "Nostr Wallet Connect string from Alby or Mutiny"
+      phoenixdUrl:
+        type: string
+        description: "Phoenixd base URL e.g. http://localhost:9740"
+      phoenixdPassword:
+        type: string
+        description: "Phoenixd HTTP Basic auth password"
+  commandFunction:
+    |-
+    (config) => ({
+      command: "uvx",
+      args: ["boltwork-mcp"],
+      env: {
+        ...(config.nwcConnectionString && { NWC_CONNECTION_STRING: config.nwcConnectionString }),
+        ...(config.phoenixdUrl && { PHOENIXD_URL: config.phoenixdUrl }),
+        ...(config.phoenixdPassword && { PHOENIXD_PASSWORD: config.phoenixdPassword }),
+      }
+    })

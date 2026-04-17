@@ -308,6 +308,43 @@ async def list_tools() -> list[types.Tool]:
                 "required": ["steps"],
             },
         ),
+      # ── Trial (no wallet required) ──────────────────────────────────
+        types.Tool(
+            name="trial_review_code",
+            description=(
+                "FREE trial code review — no Lightning wallet required. "
+                "Reviews up to 500 characters of code for bugs, security issues, and quality. "
+                "Returns the same structured JSON as the full review_code tool. "
+                "Rate limited to 5 calls per hour per IP. "
+                "Use this to try Boltwork before setting up a wallet. "
+                "For full code review with no limits, use review_code (2000 sats)."
+            ),
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "code": {"type": "string", "description": "Source code to review (max 500 chars)"},
+                },
+                "required": ["code"],
+            },
+        ),
+        types.Tool(
+            name="trial_summarise",
+            description=(
+                "FREE trial text summarisation — no Lightning wallet required. "
+                "Summarises up to 1000 characters of text. "
+                "Returns title, summary, key points, sentiment, and topics. "
+                "Rate limited to 5 calls per hour per IP. "
+                "Use this to try Boltwork before setting up a wallet. "
+                "For full PDF/webpage summarisation, use summarise_pdf or summarise_webpage."
+            ),
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "text": {"type": "string", "description": "Text to summarise (max 1000 chars)"},
+                },
+                "required": ["text"],
+            },
+        ),
     ]
 
 
@@ -327,7 +364,28 @@ async def call_tool(name: str, arguments: dict[str, Any]) -> list[types.TextCont
 
 async def _dispatch(name: str, args: dict) -> dict:
     match name:
+        
+        case "trial_review_code":
+            import httpx
+            async with httpx.AsyncClient(timeout=30.0) as client:
+                r = await client.post(
+                    f"{DIRECT_API}/trial/review",
+                    json={"code": args["code"]},
+                )
+                if r.status_code != 200:
+                    raise RuntimeError(f"Trial review failed: HTTP {r.status_code} — {r.text[:200]}")
+                return r.json()
 
+        case "trial_summarise":
+            import httpx
+            async with httpx.AsyncClient(timeout=30.0) as client:
+                r = await client.post(
+                    f"{DIRECT_API}/trial/summarise",
+                    json={"text": args["text"]},
+                )
+                if r.status_code != 200:
+                    raise RuntimeError(f"Trial summarise failed: HTTP {r.status_code} — {r.text[:200]}")
+                return r.json()
         case "summarise_pdf":
             return await l402_request(
                 "POST", "/summarise/url",

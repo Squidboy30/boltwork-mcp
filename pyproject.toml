@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "boltwork-mcp"
-version = "0.1.6"
+version = "0.1.12"
 description = "MCP server for Boltwork - AI services via Bitcoin Lightning"
 readme = {file = "README.md", content-type = "text/markdown"}
 license = { text = "MIT" }
@@ -33,3 +33,4 @@ boltwork-mcp = "boltwork_mcp.server:run"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/boltwork_mcp"]
+

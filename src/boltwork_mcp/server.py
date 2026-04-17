@@ -36,7 +36,7 @@ from boltwork_mcp.payment import l402_request
 # ---------------------------------------------------------------------------
 
 GATEWAY = os.environ.get("BOLTWORK_GATEWAY", "https://parsebit-lnd.fly.dev")
-
+DIRECT_API = os.environ.get("BOLTWORK_API", "https://parsebit.fly.dev")
 # ---------------------------------------------------------------------------
 # MCP Server
 # ---------------------------------------------------------------------------

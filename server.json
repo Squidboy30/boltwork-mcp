@@ -3,7 +3,7 @@
   "name": "io.github.Squidboy30/boltwork-mcp",
   "title": "Boltwork",
   "description": "AI services via Bitcoin Lightning — PDF summarisation, code review, translation and more.",
-  "version": "0.1.13",
+  "version": "0.1.15",
   "repository": {
     "url": "https://github.com/Squidboy30/boltwork-mcp",
     "source": "github"
@@ -12,7 +12,7 @@
     {
       "registryType": "pypi",
       "identifier": "boltwork-mcp",
-      "version": "0.1.13",
+      "version": "0.1.15",
       "transport": {
         "type": "stdio"
       },

@@ -35,7 +35,7 @@ from boltwork_mcp.payment import l402_request
 # Configuration
 # ---------------------------------------------------------------------------
 
-GATEWAY = os.environ.get("BOLTWORK_GATEWAY", "https://parsebit-lnd.fly.dev")
+GATEWAY = os.environ.get("BOLTWORK_GATEWAY", "https://parsebit.fly.dev")
 DIRECT_API = os.environ.get("BOLTWORK_API", "https://parsebit.fly.dev")
 # ---------------------------------------------------------------------------
 # MCP Server
@@ -47,6 +47,43 @@ app = Server("boltwork")
 @app.list_tools()
 async def list_tools() -> list[types.Tool]:
     return [
+
+
+        # ── Free Trials (no wallet needed) ───────────────────────────────
+        types.Tool(
+            name="trial_summarise",
+            description=(
+                "FREE trial — summarise a short piece of text (max ~500 words). "
+                "No Lightning wallet needed. "
+                "Use this to try Boltwork before setting up payments. "
+                "For full document summarisation use summarise_pdf or summarise_webpage."
+            ),
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "text": {"type": "string", "description": "Text to summarise (max ~500 words)"},
+                },
+                "required": ["text"],
+            },
+        ),
+
+        types.Tool(
+            name="trial_review_code",
+            description=(
+                "FREE trial — review a short code snippet (max ~50 lines). "
+                "No Lightning wallet needed. "
+                "Use this to try Boltwork before setting up payments. "
+                "For full code review use review_code or review_code_url."
+            ),
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "code":     {"type": "string", "description": "Code snippet to review (max ~50 lines)"},
+                    "language": {"type": "string", "description": "Language hint (optional)"},
+                },
+                "required": ["code"],
+            },
+        ),
 
         # ── Summarisation ────────────────────────────────────────────────
         types.Tool(
@@ -386,6 +423,25 @@ async def _dispatch(name: str, args: dict) -> dict:
                 if r.status_code != 200:
                     raise RuntimeError(f"Trial summarise failed: HTTP {r.status_code} — {r.text[:200]}")
                 return r.json()
+        case "trial_summarise":
+            import httpx as _httpx
+            async with _httpx.AsyncClient(timeout=30.0) as _client:
+                _r = await _client.post(f"{DIRECT_API}/trial/summarise", json={"text": args["text"]})
+                if _r.status_code != 200:
+                    raise RuntimeError(f"HTTP {_r.status_code}: {_r.text[:200]}")
+                return _r.json()
+
+        case "trial_review_code":
+            import httpx as _httpx
+            async with _httpx.AsyncClient(timeout=30.0) as _client:
+                _body = {"code": args["code"]}
+                if "language" in args:
+                    _body["language"] = args["language"]
+                _r = await _client.post(f"{DIRECT_API}/trial/review", json=_body)
+                if _r.status_code != 200:
+                    raise RuntimeError(f"HTTP {_r.status_code}: {_r.text[:200]}")
+                return _r.json()
+
         case "summarise_pdf":
             return await l402_request(
                 "POST", "/summarise/url",

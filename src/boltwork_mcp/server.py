@@ -259,6 +259,45 @@ async def list_tools() -> list[types.Tool]:
             },
         ),
 
+
+        types.Tool(
+            name="analyse_image",
+            description=(
+                "Analyse an image from a URL. Returns structured description including "
+                "content type, objects detected, any visible text (OCR), dominant colors, "
+                "sentiment, and tags. "
+                "Costs 200 sats via Lightning. "
+                "Supported formats: JPEG, PNG, GIF, WebP."
+            ),
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "url":    {"type": "string", "description": "URL of the image to analyse"},
+                    "detail": {"type": "string", "description": "Analysis detail level: low, high, or auto (default: auto)"},
+                },
+                "required": ["url"],
+            },
+        ),
+
+        types.Tool(
+            name="analyse_contract",
+            description=(
+                "Analyse a contract PDF and return structured intelligence. "
+                "Returns risk score, key clauses, obligations, termination triggers, "
+                "red flags, and recommended actions in plain English. "
+                "Costs 1000 sats via Lightning. "
+                "Use for: NDAs, SaaS agreements, employment contracts, leases, any legal document."
+            ),
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "url":       {"type": "string",  "description": "URL of the contract PDF"},
+                    "max_pages": {"type": "integer", "description": "Max pages to process (default 30)", "default": 30},
+                },
+                "required": ["url"],
+            },
+        ),
+
         # ── Agent Memory ─────────────────────────────────────────────────
         types.Tool(
             name="memory_store",
@@ -523,6 +562,19 @@ async def _dispatch(name: str, args: dict) -> dict:
                 "POST", "/analyse/explain",
                 f"{GATEWAY}/analyse/explain",
                 json_body=body,
+            )
+
+
+        case "analyse_image":
+            return await l402_request(
+                "POST", f"{GATEWAY}/analyse/image",
+                json_body={"url": args["url"], "detail": args.get("detail", "auto")},
+            )
+
+        case "analyse_contract":
+            return await l402_request(
+                "POST", f"{GATEWAY}/analyse/contract",
+                json_body={"url": args["url"], "max_pages": args.get("max_pages", 30)},
             )
 
         case "memory_store":

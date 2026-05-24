@@ -311,7 +311,8 @@ async def list_tools() -> list[types.Tool]:
                 "type": "object",
                 "properties": {
                     "agent_id": {"type": "string", "description": "Stable identifier for your agent"},
-                    "entries":  {"type": "object", "description": "Key-value pairs to store (max 10 keys, values must be JSON-serialisable)"},
+                    "entries":      {"type": "object", "description": "Key-value pairs to store (max 10 keys, values must be JSON-serialisable)"},
+                    "ttl_seconds":  {"type": "integer", "description": "Time-to-live in seconds (omit for no expiry)"},
                 },
                 "required": ["agent_id", "entries"],
             },
@@ -329,6 +330,23 @@ async def list_tools() -> list[types.Tool]:
                 "properties": {
                     "agent_id": {"type": "string",       "description": "Agent identifier"},
                     "keys":     {"type": "array",        "description": "Specific keys to fetch (omit to return all)", "items": {"type": "string"}},
+                },
+                "required": ["agent_id"],
+            },
+        ),
+
+        types.Tool(
+            name="memory_list",
+            description=(
+                "List all keys stored for your agent, optionally filtered by prefix. "
+                "Useful for discovering stored context without fetching values. "
+                "Free — no Lightning payment required."
+            ),
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "agent_id": {"type": "string", "description": "Agent identifier"},
+                    "prefix":   {"type": "string", "description": "Filter keys starting with this prefix (optional)"},
                 },
                 "required": ["agent_id"],
             },

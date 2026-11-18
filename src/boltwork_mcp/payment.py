@@ -4,7 +4,7 @@ Boltwork MCP - L402 Payment Handler
 Handles the full L402 payment flow transparently.
 
 Supported wallet backends:
-  - NWC       (Nostr Wallet Connect) — Alby, Mutiny, Coinos, Primal, Cashu.me
+  - NWC       (Nostr Wallet Connect) — Alby, Rizful, Coinos, Primal, Cashu.me
   - Phoenixd  — self-hosted Lightning node (ACINQ)
   - LNbits    — self-hosted or hosted Lightning wallet
   - Strike    — custodial Lightning wallet (Strike API)
@@ -54,7 +54,7 @@ async def pay_invoice_nwc(invoice: str, nwc_string: str) -> str:
     Pay a Lightning invoice via Nostr Wallet Connect (NWC).
     Returns the payment preimage as a hex string.
 
-    Compatible with: Alby (nwc.getalby.com), Mutiny Wallet,
+    Compatible with: Alby (nwc.getalby.com), Rizful,
                      Coinos, Primal, Cashu.me, any NWC-compatible wallet.
 
     NWC connection string format:
@@ -295,7 +295,7 @@ async def pay_invoice(invoice: str) -> str:
     Reads configuration from environment variables.
     Priority order: NWC → LNbits → Strike → Phoenixd
 
-    NWC (Alby, Mutiny, Coinos, Primal, Cashu.me):
+    NWC (Alby, Rizful, Coinos, Primal, Cashu.me):
       NWC_CONNECTION_STRING=nostr+walletconnect://...
 
     LNbits (self-hosted or lnbits.com):
@@ -327,7 +327,7 @@ async def pay_invoice(invoice: str) -> str:
     else:
         raise RuntimeError(
             "No wallet configured. Set one of:\n"
-            "  NWC_CONNECTION_STRING=nostr+walletconnect://...      (Alby, Mutiny, Coinos)\n"
+            "  NWC_CONNECTION_STRING=nostr+walletconnect://...      (Alby, Rizful, Coinos)\n"
             "  LNBITS_URL=https://lnbits.com + LNBITS_API_KEY=...  (LNbits)\n"
             "  STRIKE_API_KEY=...                                    (Strike)\n"
             "  PHOENIXD_URL=http://localhost:9740 + PHOENIXD_PASSWORD=...  (Phoenixd)"

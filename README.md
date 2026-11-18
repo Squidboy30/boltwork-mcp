@@ -50,7 +50,7 @@ Real AI results instantly. No Lightning wallet. No setup. Rate limited to 5 call
 ```bash
 pip install boltwork-mcp
 
-# If using NWC (Alby, Mutiny, Coinos, etc.):
+# If using NWC (Alby, Rizful, Coinos, etc.):
 pip install "boltwork-mcp[nwc]"
 ```
 
@@ -67,11 +67,11 @@ uvx boltwork-mcp
 Four wallet backends are supported. Pick whichever fits your setup:
 
 ### Option A — NWC / Nostr Wallet Connect *(easiest)*
-Works with **Alby**, **Mutiny Wallet**, **Coinos**, **Primal**, **Cashu.me**, and any NWC-compatible wallet.
+Works with **Alby**, **Rizful**, **Coinos**, **Primal**, **Cashu.me**, and any NWC-compatible wallet.
 
 1. Get a connection string:
    - **Alby** — go to [nwc.getalby.com](https://nwc.getalby.com), create a budget, copy the string
-   - **Mutiny** — Settings → Connections → Add connection
+   - **Rizful** — [rizful.com](https://rizful.com) → NWC → Get a code you can pay with → Get Connection Code
    - **Coinos** — [coinos.io](https://coinos.io) → Settings → Nostr Wallet Connect
 2. Add to your MCP config:
 

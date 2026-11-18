@@ -19,7 +19,7 @@
       "environmentVariables": [
         {
           "name": "NWC_CONNECTION_STRING",
-          "description": "Nostr Wallet Connect string (e.g. from Alby or Mutiny). Required if not using Phoenixd.",
+          "description": "Nostr Wallet Connect string (e.g. from Alby or Rizful). Required if not using Phoenixd.",
           "isRequired": false,
           "isSecret": true
         },

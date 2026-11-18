@@ -5,7 +5,7 @@ startCommand:
     properties:
       nwcConnectionString:
         type: string
-        description: "Nostr Wallet Connect string from Alby or Mutiny"
+        description: "Nostr Wallet Connect string from Alby or Rizful"
       phoenixdUrl:
         type: string
         description: "Phoenixd base URL e.g. http://localhost:9740"
